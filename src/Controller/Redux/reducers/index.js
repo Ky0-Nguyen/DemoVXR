@@ -3,6 +3,6 @@ import dataReducer from './dataReducer'
 import routesReducer from './routersReducer'
 
 export default combineReducers({
-  data: dataReducer,
+  dataState: dataReducer,
   navigate: routesReducer
 })

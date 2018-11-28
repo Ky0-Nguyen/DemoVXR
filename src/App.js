@@ -1,6 +1,6 @@
 import React from 'react'
 
-import storeRedux from 'reduxer/store'
+import storeRedux from 'controller/Redux/store'
 import { Provider } from 'react-redux'
 
 import {

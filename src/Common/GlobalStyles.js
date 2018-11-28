@@ -22,3 +22,8 @@ const height = (num) => myHeight * handleSize(num)
 
 const totalSize = (num) => Math.sqrt((myHeight * myHeight) + (myWidth * myWidth)) * handleSize(num)
 export { width, height, totalSize }
+export const COLORS = {
+  BUTTON: '#00A7EE',
+  GRADIENT1: '#299DFE',
+  GRADIENT2: '#45C3FC'
+}

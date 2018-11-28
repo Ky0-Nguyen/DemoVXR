@@ -6,16 +6,17 @@ import {
 import { connect } from 'react-redux'
 import SplashScreen from 'react-native-splash-screen'
 
-import { width, height, COLORS } from 'utils/globalStyles'
-import { actionsType } from 'utils/reduxConstants'
+import { width, height, COLORS } from 'common/GlobalStyles'
+import { actionsType } from 'common/ReduxConstants'
+import { RouteKey } from 'common/GlobalConstants'
 
 class SplashScreenRN extends Component {
   componentDidMount () {
     SplashScreen.hide()
-    setTimeout(
-      () =>
-        this.props.checkAuthen()
-      , 1000
+
+    setTimeout(() =>
+      this.props.gotoDetail()
+    , 1000
     )
   }
   render () {
@@ -30,7 +31,7 @@ class SplashScreenRN extends Component {
 const mapStateToProps = (state) => ({
 })
 const mapactionsTypeToProps = (dispatch) => ({
-  checkAuthen: () => dispatch({ type: actionsType.CHECK_AUTHEN })
+  gotoDetail: () => dispatch({ type: actionsType.PUSH, routeName: RouteKey.HomeScreen })
 })
 export default connect(mapStateToProps, mapactionsTypeToProps)(SplashScreenRN)
 
