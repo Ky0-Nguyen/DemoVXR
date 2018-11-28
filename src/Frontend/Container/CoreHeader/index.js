@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   View,
-  StatusBar,
   TouchableWithoutFeedback,
   Keyboard,
   StyleSheet
@@ -43,7 +42,6 @@ get renderContent () {
       />
       <View style={styles.container}/>
       <View style={[gStyles.backgroundDefault, style]}>
-        <StatusBar barStyle='light-content'/>
         {children}
       </View>
       <InternetAlert/>
