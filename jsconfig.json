@@ -5,7 +5,7 @@
       "common/*": ["./src/Common/*"],
       "controller/*": ["./src/Controller/*"],
       "assets/*": ["./src/Assets/*"],
-      "frontend/*": ["./src/FrontEnd/*"]
+      "frontend/*": ["./src/Frontend/*"]
     }
   },
   "include": ["**/*.js"]
