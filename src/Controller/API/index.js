@@ -10,14 +10,19 @@ export default class ServerApi {
   * @description description
   * --------------------------------------- */
   static getData = async () => {
-    const url = BaseURL + `/places`
+    const url = BaseURL
     const body = null
     const header = {}
+    console.log('getData', url)
     return get(url, body, header)
   }
-  /**
-  * showAlert
-  */
+
+  /** -------------------------------------
+ * @method - showAlert
+ * @param - title: string, message: string
+ * @author - Nguyen Tuan / 2018-11-28 23:38:25
+ * @description description
+ * --------------------------------------- */
   static showAlert = async (title = '', message = '') => {
     setTimeout(() => Alert.alert(title, message), 0)
   }
