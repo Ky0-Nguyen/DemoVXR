@@ -10,9 +10,7 @@ export default (action$) => {
     return Observable.concat(
       Observable.fromPromise(SimpleStore.get(KeyStore.FETCH_DATA))
         .mergeMap((data) => {
-          console.log('dadata', data)
           if (data && data.data.length > 0) {
-            console.log('vo trong day roi')
             return Observable.concat(
               Observable.of({ type: actionsType.FETCH_DATA_SUCCESS, payload: data.data })
             )
