@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, StyleSheet, Image, WebView, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, StyleSheet, WebView, TouchableOpacity } from 'react-native'
 
 import { actionsType } from 'common/ReduxConstants'
 import { RouteKey } from 'common/GlobalConstants'
@@ -9,11 +9,29 @@ import CoreHeader from 'frontend/Container/CoreHeader'
 
 import { connect } from 'react-redux'
 
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
-const icHeard = <AntDesign name={'heart'} color={'#111111'} size={height(5)}/>
-const icHeardTo = <AntDesign name={'hearto'} color={'#111111'} size={height(5)}/>
+import { CachedImage } from 'react-native-img-cache'
+import Image from 'react-native-image-progress'
+import ProgressBar from 'react-native-progress/Bar'
+
+const icHeard = <Ionicons name={'ios-heart'} color={'#111111'} size={height(5)}/>
+const icHeardTo = <Ionicons name={'ios-heart-empty'} color={'#111111'} size={height(5)}/>
+const icHeardHalf = <Ionicons name={'ios-heart-half'} color={'#111111'} size={height(5)}/>
+
+const SearchAll = 0
+const SearchSaved = 1
+const SearchNotSave = 2
+
 class Home extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      iSearch: 0, // 0: all, 1: saved , 2:  dont saved
+      dataSearch: []
+    }
+  }
+
   async componentDidMount () {
     this.props.fetchData()
   }
@@ -72,21 +90,63 @@ class Home extends Component {
             </View>
           </View>
           <View style={styles.contRight}>
-            <Image source={{ uri: item.company_logo }} style={styles.imgItem} resizeMode={'stretch'}/>
+            <CachedImage
+              component={Image}
+              source={{
+                uri: item.company_logo
+              }}
+              indicator={ProgressBar}
+              style={styles.imgItem} resizeMode={'stretch'}/>
           </View>
         </View>
       </View>
     )
   }
 
+  _onSearch = () => {
+    let iSearch = this.state.iSearch === SearchAll
+      ? SearchSaved
+      : this.state.iSearch === SearchSaved
+        ? SearchNotSave
+        : SearchAll
+    this.setState({
+      iSearch
+    })
+    switch (iSearch) {
+    case SearchAll:
+      this.setState({ dataSearch: this.props.dataState.data })
+      break
+    case SearchSaved:
+      this.setState({ dataSearch: this.props.dataState.data.filter(item => item.saved === true) })
+      break
+    case SearchNotSave:
+      this.setState({ dataSearch: this.props.dataState.data.filter(item => item.saved === false) })
+      break
+    default:
+      this.setState({ dataSearch: this.props.dataState.data })
+      break
+    }
+  }
+
   render () {
-    const { dataState } = this.props
+    const { dataState, dataSearch } = this.props
+    const { iSearch } = this.state
     return (
-      <CoreHeader title={'Home Screen'}>
+      <CoreHeader title={'Home Screen'} isProcess={dataState.isLoading}>
         <View style={styles.container}>
+          <TouchableOpacity style={styles.btnSort} onPress={this._onSearch}>
+            {
+              iSearch === 0
+                ? icHeardHalf
+                : iSearch === 1
+                  ? icHeard
+                  : icHeardTo
+            }
+          </TouchableOpacity>
+
           <FlatList
             keyExtractor={item => item.id.toString()}
-            data={dataState.data}
+            data={(dataSearch && dataSearch.length !== 0) ? dataSearch : dataState.data}
             extraData={this.props}
             renderItem={this._renderItem}
           />
@@ -108,7 +168,7 @@ export default connect(mapStateToProps, mapactionsTypeToProps)(Home)
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: height(2)
+    paddingBottom: height(2)
   },
   contItem: {
     width: width(90),
@@ -126,6 +186,18 @@ export const styles = StyleSheet.create({
     elevation: 2
 
   },
+  btnSort: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    zIndex: 100,
+    alignSelf: 'center',
+    // shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 2
+  },
   contTop: {
     flexDirection: 'row',
     justifyContent: 'space-between'
@@ -140,7 +212,8 @@ export const styles = StyleSheet.create({
     paddingVertical: height(1)
   },
   contRight: {
-    width: width(20),
+    width: width(18),
+    paddingRight: width(2),
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -182,7 +255,6 @@ export const styles = StyleSheet.create({
   },
   imgItem: {
     height: height(7),
-    width: width(20)
-
+    width: width(18)
   }
 })

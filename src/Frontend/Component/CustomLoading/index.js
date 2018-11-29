@@ -4,14 +4,13 @@ import { View, Text, StyleSheet } from 'react-native'
 import Spinner from 'react-native-spinkit'
 
 import CustomModal from 'frontend/Component/CustomModal'
-import { width, height } from 'common/GlobalStyles'
-import { COLOR } from 'common/GlobalConstants'
+import { width, height, COLORS } from 'common/GlobalStyles'
 
 const MyClass = ({ isProcess, style }) => {
   return (
     <CustomModal style={[styles.modalLoading, style]} isShowModal={isProcess}>
       <View style={styles.loadingPage}>
-        <Spinner isVisible={isProcess} size={width(6)} type={'Circle'} color={COLOR.BUTTON}/>
+        <Spinner isVisible={isProcess} size={width(6)} type={'Circle'} color={COLORS.BUTTON}/>
         <Text style={styles.txtLoading}>{'Loading ...'}</Text>
       </View>
     </CustomModal>

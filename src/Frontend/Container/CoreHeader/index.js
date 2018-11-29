@@ -8,6 +8,8 @@ import {
 import CoreHeader from './CoreHeader'
 import gStyles, { width, height } from 'common/GlobalStyles'
 
+import CustomLoading from 'frontend/Component/CustomLoading'
+
 class CoreLayoutContainer extends React.Component {
 dismissKeyboard = () => Keyboard.dismiss()
 get renderContent () {
@@ -22,7 +24,8 @@ get renderContent () {
     headerStyle,
     leftAction,
     headerCustomView,
-    disabledCustomRightIcon
+    disabledCustomRightIcon,
+    isProcess
   } = this.props
   return (
     <View style={gStyles.backgroundDefault}>
@@ -42,6 +45,7 @@ get renderContent () {
       <View style={[gStyles.backgroundDefault, style]}>
         {children}
       </View>
+      <CustomLoading isProcess={isProcess} style={styles.modal}/>
     </View>
   )
 }
@@ -65,6 +69,9 @@ const styles = StyleSheet.create({
     width: width(100),
     justifyContent: 'center',
     backgroundColor: '#FFCD02'
+  },
+  modal: {
+    top: height(40)
   }
 })
 

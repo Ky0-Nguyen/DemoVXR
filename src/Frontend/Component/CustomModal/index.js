@@ -2,8 +2,7 @@
 import React, { PureComponent } from 'react'
 import { View, StyleSheet, TouchableWithoutFeedback, Text, TouchableOpacity } from 'react-native'
 import * as Animatable from 'react-native-animatable'
-import { height, width } from 'common/GlobalStyles'
-import { COLOR } from 'common/GlobalConstants'
+import { height, width, COLORS } from 'common/GlobalStyles'
 
 // create a component
 class MyClass extends PureComponent {
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
   },
   txtButton: {
     fontWeight: 'bold',
-    color: COLOR.BUTTON
+    color: COLORS.BUTTON
   },
   btn: {
     flex: 1,
