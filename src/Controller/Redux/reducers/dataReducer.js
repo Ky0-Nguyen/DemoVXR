@@ -16,8 +16,10 @@ export default (state = dataInitState, action) => {
     SimpleStore.save(KeyStore.FETCH_DATA, { data: action.payload, isLoading: false, isRefresh: false, isLoadmore: false })
     return { data: action.payload, isLoading: false, isRefresh: false, isLoadmore: false }
   case actionsType.UPDATE_DATA_SUCCESS:
+    SimpleStore.save(KeyStore.FETCH_DATA, { data: action.payload, isLoading: false, isRefresh: false, isLoadmore: false })
     return { data: action.payload, isLoading: false, isRefresh: false, isLoadmore: false }
   case actionsType.CANCEL_FETCHING_DATA:
+    SimpleStore.save(KeyStore.FETCH_DATA, { data: action.payload, isLoading: false, isRefresh: false, isLoadmore: false })
     return { data: action.payload, isLoading: false, isRefresh: false, isLoadmore: false }
   default:
     return state
