@@ -2,9 +2,27 @@
 import { Observable } from 'rxjs'
 import ServerAPI from 'controller/API'
 import { actionsType, TIME_OUT, ttError, strMessageTimeout, statusCode } from 'common/ReduxConstants'
+import { KeyStore } from 'common/GlobalConstants'
+import SimpleStore from 'react-native-simple-store'
 
 export default (action$) => {
-  const fetchRooms$ = action$.ofType(actionsType.FETCH_DATA).switchMap((action) => {
+  const checkData$ = action$.ofType(actionsType.FETCH_DATA).switchMap((action) => {
+    return Observable.concat(
+      Observable.fromPromise(SimpleStore.get(KeyStore.FETCH_DATA))
+        .mergeMap((data) => {
+          if (data && data.length > 0) {
+            return Observable.concat(
+              Observable.of({ type: actionsType.FETCH_DATA_SUCCESS, payload: data })
+            )
+          } else {
+            return Observable.concat(
+              Observable.of({ type: actionsType.FETCH_DATA_FAIL })
+            )
+          }
+        })
+    )
+  })
+  const fetchData$ = action$.ofType(actionsType.FETCH_DATA).switchMap((action) => {
     return Observable.concat(
       Observable.fromPromise(ServerAPI.getData()) // Call api
         .takeUntil(Observable.timer(TIME_OUT)) // Set timeout
@@ -50,6 +68,7 @@ export default (action$) => {
   })
 
   return Observable.merge(
-    fetchRooms$
+    checkData$,
+    fetchData$
   )
 }

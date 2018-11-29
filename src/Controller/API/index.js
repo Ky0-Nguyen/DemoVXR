@@ -13,7 +13,7 @@ export default class ServerApi {
     const url = BaseURL
     const body = null
     const header = {}
-    console.log('getData', url)
+
     return get(url, body, header)
   }
 
