@@ -12,8 +12,27 @@ export default (action$) => {
         .mergeMap((response) => { // Process data response
           if (response) {
             if (response.status === statusCode.CODE_200) { // Ok
+              let data = []
+              response.data.map(item => {
+                let itemTemp = {
+                  company: item.company,
+                  company_logo: item.company_logo,
+                  company_url: item.company_url,
+                  created_at: item.created_at,
+                  description: item.description,
+                  how_to_apply: item.how_to_apply,
+                  id: item.id,
+                  location: item.location,
+                  title: item.title,
+                  type: item.type,
+                  url: item.url,
+                  saved: false
+                }
+                data.push(itemTemp)
+              })
+
               return Observable.concat(
-                Observable.of({ type: actionsType.FETCH_DATA_SUCCESS, payload: response.data })
+                Observable.of({ type: actionsType.FETCH_DATA_SUCCESS, payload: data })
               )
             } else { // Err
               return Observable.concat(

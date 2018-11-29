@@ -3,15 +3,13 @@ import {
   View,
   TouchableOpacity,
   Platform,
-  StyleSheet
+  StyleSheet,
+  Text
 } from 'react-native'
 import { connect } from 'react-redux'
 // Styles components
-import { width, height } from 'common/GlobalConstants'
+import { width, height } from 'common/GlobalStyles'
 import { iconBack, iconAdd } from 'common/GlobalIcons'
-import { formatNumberDecimal0 } from 'common/GlobalFuntions'
-
-import Text from 'frontend/components/CustomText'
 
 // |------------------------------|
 // |--- RENDER MAIN VIEW START ---|
@@ -30,13 +28,9 @@ class CoreHeader extends React.PureComponent {
       rightAction,
       customView,
       rightView,
-      disabledCustomRightIcon = false,
-      userInfoData
+      disabledCustomRightIcon = false
     } = this.props
-    let balance = (userInfoData.tokenAmount ? formatNumberDecimal0(userInfoData.tokenAmount.toString(), false) : 0)
-    let styleTitleSub = [styles.txtTitleSub, {
-      fontSize: balance.toString().length < 16 ? width(5.5) : width(4.5)
-    }]
+
     return (
       <View style={[styles.container, headerStyle]}>
         <View style={styles.coreStyle}>
@@ -58,7 +52,6 @@ class CoreHeader extends React.PureComponent {
           }
           <View style={ styles.txtTitleContainer}>
             <Text numberOfLines={1} style={styles.txtTitle} >{title}</Text>
-            <Text numberOfLines={1} style={styleTitleSub} >{balance + ' CPL'}</Text>
           </View>
           {rightView}
           {
@@ -116,12 +109,7 @@ const styles = StyleSheet.create({
   txtTitle: {
     color: '#111111',
     textAlign: 'center',
-    fontSize: width(4.5)
-  },
-  txtTitleSub: {
-    color: '#111111',
-    textAlign: 'center',
-    marginVertical: height(1)
+    fontSize: width(5.5)
   },
   iconHeaderLeft: {
     width: width(15),

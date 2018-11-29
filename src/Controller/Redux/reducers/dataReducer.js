@@ -11,11 +11,11 @@ export default (state = dataInitState, action) => {
   case actionsType.FETCH_DATA:
     return action.payload
   case actionsType.FETCH_DATA_SUCCESS:
-    return { ...action.payload, isLoading: false, isRefresh: false, isLoadmore: false }
+    return { data: action.payload, isLoading: false, isRefresh: false, isLoadmore: false }
   case actionsType.UPDATE_DATA_SUCCESS:
-    return { ...action.payload, isLoading: false, isRefresh: false, isLoadmore: false }
+    return { data: action.payload, isLoading: false, isRefresh: false, isLoadmore: false }
   case actionsType.CANCEL_FETCHING_DATA:
-    return { ...action.payload, isLoading: false, isRefresh: false, isLoadmore: false }
+    return { data: action.payload, isLoading: false, isRefresh: false, isLoadmore: false }
   default:
     return state
   }

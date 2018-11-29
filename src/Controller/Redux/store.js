@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux'
+
 import { createEpicMiddleware } from 'redux-observable'
 import loggerMiddleware from 'redux-logger'
+
 import { middlewareNav } from 'common/GlobalRoutes'
 import epics from 'controller/Redux/epics'
 import reducers from 'controller/Redux/reducers'
@@ -19,5 +21,4 @@ if (process.env.NODE_ENV === `development`) {
 
 // create store
 const store = createStore(reducers, compose(applyMiddleware(...middlewares)))
-
 export default store

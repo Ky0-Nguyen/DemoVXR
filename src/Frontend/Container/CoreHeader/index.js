@@ -5,10 +5,8 @@ import {
   Keyboard,
   StyleSheet
 } from 'react-native'
-import gStyles from 'common/GlobalStyles'
 import CoreHeader from './CoreHeader'
-import { width, height } from 'common/GlobalConstants'
-import InternetAlert from 'frontend/components/CustomAlert/InternetAlert'
+import gStyles, { width, height } from 'common/GlobalStyles'
 
 class CoreLayoutContainer extends React.Component {
 dismissKeyboard = () => Keyboard.dismiss()
@@ -44,7 +42,6 @@ get renderContent () {
       <View style={[gStyles.backgroundDefault, style]}>
         {children}
       </View>
-      <InternetAlert/>
     </View>
   )
 }
