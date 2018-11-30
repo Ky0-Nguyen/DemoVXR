@@ -58,48 +58,50 @@ class Home extends Component {
 
   _renderItem = ({ item }) => {
     return (
-      <View style={styles.contItem}>
-        <View style={styles.contTop}>
-          <View style={styles.contItemHeader}>
-            <Text style={styles.txtTitleItem}>{item.title && item.title}</Text>
+      <TouchableOpacity onPress={() => this.props.gotoDetail()}>
+        <View style={styles.contItem}>
+          <View style={styles.contTop}>
+            <View style={styles.contItemHeader}>
+              <Text style={styles.txtTitleItem}>{item.title && item.title}</Text>
+            </View>
+            <View style={styles.contItemHeard}>
+              <TouchableOpacity onPress={() => { this._onSaved(item) }}>
+                {
+                  item.saved
+                    ? icHeard
+                    : icHeardTo
+                }
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.contItemHeard}>
-            <TouchableOpacity onPress={() => { this._onSaved(item) }}>
-              {
-                item.saved
-                  ? icHeard
-                  : icHeardTo
-              }
-            </TouchableOpacity>
-          </View>
-        </View>
 
-        <View style={styles.contBottom}>
-          <View style={styles.contLeft}>
-            <View style={styles.contItemSubHeader}>
-              <Text style={styles.txtWork}>{item.company && item.company}</Text>
-              <Text style={styles.txtLocation}>{item.location && item.location}</Text>
+          <View style={styles.contBottom}>
+            <View style={styles.contLeft}>
+              <View style={styles.contItemSubHeader}>
+                <Text style={styles.txtWork}>{item.company && item.company}</Text>
+                <Text style={styles.txtLocation}>{item.location && item.location}</Text>
+              </View>
+              <View style={styles.contItemContent}>
+                <WebView
+                  originWhitelist={['*']}
+                  source={{ html: item.description }}
+                  style={styles.contentItem}
+                  scrollEnabled={false}
+                />
+              </View>
             </View>
-            <View style={styles.contItemContent}>
-              <WebView
-                originWhitelist={['*']}
-                source={{ html: item.description }}
-                style={styles.contentItem}
-                scrollEnabled={false}
-              />
+            <View style={styles.contRight}>
+              <CachedImage
+                component={Image}
+                source={{
+                  uri: item.company_logo
+                }}
+                indicator={ProgressBar}
+                style={styles.imgItem} resizeMode={'stretch'}/>
             </View>
-          </View>
-          <View style={styles.contRight}>
-            <CachedImage
-              component={Image}
-              source={{
-                uri: item.company_logo
-              }}
-              indicator={ProgressBar}
-              style={styles.imgItem} resizeMode={'stretch'}/>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -117,10 +119,10 @@ class Home extends Component {
       this.setState({ dataSearch: this.props.dataState.data })
       break
     case SearchSaved:
-      this.setState({ dataSearch: this.props.dataState.data.filter(item => item.saved === true) })
+      this.setState({ dataSearch: this.props.dataState.data.filter(item => !!item.saved) })
       break
     case SearchNotSave:
-      this.setState({ dataSearch: this.props.dataState.data.filter(item => item.saved === false) })
+      this.setState({ dataSearch: this.props.dataState.data.filter(item => !item.saved) })
       break
     default:
       this.setState({ dataSearch: this.props.dataState.data })
@@ -128,22 +130,28 @@ class Home extends Component {
     }
   }
 
-  render () {
-    const { dataState, dataSearch } = this.props
+  get _renderRightView () {
     const { iSearch } = this.state
     return (
-      <CoreHeader title={'Home Screen'} isProcess={dataState.isLoading}>
-        <View style={styles.container}>
-          <TouchableOpacity style={styles.btnSort} onPress={this._onSearch}>
-            {
-              iSearch === 0
-                ? icHeardHalf
-                : iSearch === 1
-                  ? icHeard
-                  : icHeardTo
-            }
-          </TouchableOpacity>
+      <TouchableOpacity style={styles.btnSort} onPress={this._onSearch}>
+        {
+          iSearch === 0
+            ? icHeardHalf
+            : iSearch === 1
+              ? icHeard
+              : icHeardTo
+        }
+      </TouchableOpacity>
+    )
+  }
 
+  render () {
+    const { dataState } = this.props
+    const { dataSearch } = this.state
+    console.log(dataSearch)
+    return (
+      <CoreHeader title={'Home Screen'} isProcess={dataState.isLoading} rightView={this._renderRightView}>
+        <View style={styles.container}>
           <FlatList
             keyExtractor={item => item.id.toString()}
             data={(dataSearch && dataSearch.length !== 0) ? dataSearch : dataState.data}
@@ -161,7 +169,7 @@ const mapStateToProps = (state) => ({
 const mapactionsTypeToProps = (dispatch) => ({
   fetchData: () => dispatch({ type: actionsType.FETCH_DATA, payload: { data: [], isLoading: true } }),
   updateData: (data) => dispatch({ type: actionsType.UPDATE_DATA_SUCCESS, payload: data }),
-  gotoDetail: (data) => dispatch({ type: actionsType.PUSH, routeName: RouteKey.Detail, params: { data } })
+  gotoDetail: () => dispatch({ type: actionsType.PUSH, routeName: RouteKey.DetailScreen })
 })
 export default connect(mapStateToProps, mapactionsTypeToProps)(Home)
 
@@ -188,8 +196,6 @@ export const styles = StyleSheet.create({
   },
   btnSort: {
     backgroundColor: 'transparent',
-    position: 'absolute',
-    zIndex: 100,
     alignSelf: 'center',
     // shadow
     shadowColor: '#000',

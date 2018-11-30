@@ -63,7 +63,9 @@ class CoreHeader extends React.PureComponent {
                 {
                   customRightIcon
                 }</TouchableOpacity >
-              : !rightView ? <View style={styles.iconHeaderRight}/> : <View/>
+              : !rightView
+                ? <View style={styles.iconHeaderRight}/>
+                : <View/>
           }
         </View>
       </View >
