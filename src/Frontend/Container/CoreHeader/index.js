@@ -9,6 +9,7 @@ import CoreHeader from './CoreHeader'
 import gStyles, { width, height } from 'common/GlobalStyles'
 
 import CustomLoading from 'frontend/Component/CustomLoading'
+import CustomModal from 'frontend/Component/CustomModal'
 
 class CoreLayoutContainer extends React.Component {
 dismissKeyboard = () => Keyboard.dismiss()
@@ -25,7 +26,8 @@ get renderContent () {
     leftAction,
     headerCustomView,
     disabledCustomRightIcon,
-    isProcess
+    isProcess,
+    modalView
   } = this.props
   return (
     <View style={gStyles.backgroundDefault}>
@@ -46,6 +48,9 @@ get renderContent () {
         {children}
       </View>
       <CustomLoading isProcess={isProcess} style={styles.modal}/>
+      <CustomModal style={styles.customModal}>
+        {modalView}
+      </CustomModal>
     </View>
   )
 }
@@ -72,6 +77,9 @@ const styles = StyleSheet.create({
   },
   modal: {
     top: height(40)
+  },
+  customModal: {
+    top: height(25)
   }
 })
 

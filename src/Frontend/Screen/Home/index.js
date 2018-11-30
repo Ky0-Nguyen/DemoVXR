@@ -28,7 +28,9 @@ class Home extends Component {
     super(props)
     this.state = {
       iSearch: 0, // 0: all, 1: saved , 2:  dont saved
-      dataSearch: []
+      dataSearch: [],
+
+      itemSelected: {}
     }
   }
 
@@ -58,7 +60,7 @@ class Home extends Component {
 
   _renderItem = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => this.props.gotoDetail()}>
+      <TouchableOpacity onPress={() => this.props.gotoDetail(item)}>
         <View style={styles.contItem}>
           <View style={styles.contTop}>
             <View style={styles.contItemHeader}>
@@ -169,7 +171,7 @@ const mapStateToProps = (state) => ({
 const mapactionsTypeToProps = (dispatch) => ({
   fetchData: () => dispatch({ type: actionsType.FETCH_DATA, payload: { data: [], isLoading: true } }),
   updateData: (data) => dispatch({ type: actionsType.UPDATE_DATA_SUCCESS, payload: data }),
-  gotoDetail: () => dispatch({ type: actionsType.PUSH, routeName: RouteKey.DetailScreen })
+  gotoDetail: (item) => dispatch({ type: actionsType.PUSH, routeName: RouteKey.DetailScreen, params: { item } })
 })
 export default connect(mapStateToProps, mapactionsTypeToProps)(Home)
 
