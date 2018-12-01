@@ -60,7 +60,7 @@ class Home extends Component {
 
   _renderItem = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => this.props.gotoDetail(item)}>
+      <TouchableOpacity onPress={() => this.props.gotoDetail(item, () => this._onSaved(item))}>
         <View style={styles.contItem}>
           <View style={styles.contTop}>
             <View style={styles.contItemHeader}>
@@ -171,7 +171,7 @@ const mapStateToProps = (state) => ({
 const mapactionsTypeToProps = (dispatch) => ({
   fetchData: () => dispatch({ type: actionsType.FETCH_DATA, payload: { data: [], isLoading: true } }),
   updateData: (data) => dispatch({ type: actionsType.UPDATE_DATA_SUCCESS, payload: data }),
-  gotoDetail: (item) => dispatch({ type: actionsType.PUSH, routeName: RouteKey.DetailScreen, params: { item } })
+  gotoDetail: (item, func) => dispatch({ type: actionsType.PUSH, routeName: RouteKey.DetailScreen, params: { item, func } })
 })
 export default connect(mapStateToProps, mapactionsTypeToProps)(Home)
 

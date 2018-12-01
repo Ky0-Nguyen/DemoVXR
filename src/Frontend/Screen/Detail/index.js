@@ -7,11 +7,14 @@ import { CachedImage } from 'react-native-img-cache'
 import Image from 'react-native-image-progress'
 import ProgressBar from 'react-native-progress/Bar'
 import { actionsType } from 'common/ReduxConstants'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+const icHeard = <Ionicons name={'ios-heart'} color={'#111111'} size={height(5)}/>
+const icHeardTo = <Ionicons name={'ios-heart-empty'} color={'#111111'} size={height(5)}/>
 
 class Detail extends PureComponent {
   render () {
     const item = this.props.navigation.getParam('item', {})
-    console.log(item)
+    const func = this.props.navigation.getParam('func', {})
     return (
       <CoreHeader title={'Detail'} leftAction ={() => this.props.pop()}>
         <View style={styles.container}>
@@ -24,18 +27,27 @@ class Detail extends PureComponent {
             />
           </View>
           <View style={styles.contBototm}>
-            <View style={styles.contBottomRight}>
+            <View style={styles.contBottomLeft}>
               <TouchableOpacity onPress={() => Linking.openURL(item.company_url)}>
-                <Text style={styles.txtURL}>{ 'View our company page >>' }</Text>
+                <Text style={styles.txtURL}>{ item.company_url && 'View our company page >>' }</Text>
               </TouchableOpacity>
             </View>
-            <CachedImage
-              component={Image}
-              source={{
-                uri: item.company_logo
-              }}
-              indicator={ProgressBar}
-              style={styles.imgItem} resizeMode={'stretch'}/>
+            <View style={styles.contBottomRight}>
+              <TouchableOpacity onPress={func}>
+                {
+                  item.saved
+                    ? icHeard
+                    : icHeardTo
+                }
+              </TouchableOpacity>
+              <CachedImage
+                component={Image}
+                source={{
+                  uri: item.company_logo
+                }}
+                indicator={ProgressBar}
+                style={styles.imgItem} resizeMode={'stretch'}/>
+            </View>
           </View>
 
         </View>
@@ -48,7 +60,8 @@ const mapStateToProps = (state) => ({
   dataState: state.dataState
 })
 const mapactionsTypeToProps = (dispatch) => ({
-  pop: () => dispatch({ type: actionsType.POP })
+  pop: () => dispatch({ type: actionsType.POP }),
+  updateData: (data) => dispatch({ type: actionsType.UPDATE_DATA_SUCCESS, payload: data })
 })
 export default connect(mapStateToProps, mapactionsTypeToProps)(Detail)
 
@@ -75,7 +88,7 @@ export const styles = StyleSheet.create({
     height: height(12),
     width: width(35),
     alignSelf: 'flex-end',
-    top: height(2)
+    marginTop: height(2)
   },
   contBototm: {
     flexDirection: 'row',
@@ -87,8 +100,15 @@ export const styles = StyleSheet.create({
     fontSize: width(3.5),
     textDecorationLine: 'underline'
   },
-  contBottomRight: {
+  contBottomLeft: {
     flex: 1,
     paddingVertical: height(2)
+  },
+  contBottomRight: {
+    flex: 1,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    backgroundColor: 'transparent'
   }
 })
