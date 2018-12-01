@@ -28,7 +28,8 @@ get renderContent () {
     disabledCustomRightIcon,
     isProcess,
     modalView,
-    isShowModal
+    isShowModal,
+    styleModal
   } = this.props
   return (
     <View style={gStyles.backgroundDefault}>
@@ -49,7 +50,7 @@ get renderContent () {
         {children}
       </View>
       <CustomLoading isProcess={isProcess} style={styles.modal}/>
-      <CustomModal style={styles.customModal} isShowModal={isShowModal}>
+      <CustomModal style={[styles.customModal, styleModal]} isShowModal={isShowModal}>
         {modalView}
       </CustomModal>
     </View>
@@ -80,7 +81,8 @@ const styles = StyleSheet.create({
     top: height(40)
   },
   customModal: {
-    top: height(25)
+    top: height(15),
+    width: width(90)
   }
 })
 

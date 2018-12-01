@@ -76,14 +76,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1000,
     backgroundColor: 'black',
-    opacity: 0.1
+    opacity: 0.4
   },
   contComponent: {
     width: width(80),
     backgroundColor: '#FFFFFF',
-    borderRadius: 10,
+    // borderRadius: 10,
     position: 'absolute',
-    top: height(35),
+    top: height(25),
     zIndex: 1001,
     alignSelf: 'center'
   },
