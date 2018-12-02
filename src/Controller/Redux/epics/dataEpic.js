@@ -4,6 +4,7 @@ import ServerAPI from 'controller/API'
 import { actionsType, TIME_OUT, ttError, strMessageTimeout, statusCode } from 'common/ReduxConstants'
 
 export default (action$) => {
+  alert('tuan')
   const fetchRooms$ = action$.ofType(actionsType.FETCH_DATA).switchMap((action) => {
     return Observable.concat(
       Observable.fromPromise(ServerAPI.getData()) // Call api

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 
 import { actionsType } from 'common/ReduxConstants'
+import { RouteKey } from 'common/GlobalConstants'
+
 import { connect } from 'react-redux'
 
 class Home extends Component {
@@ -13,7 +15,6 @@ class Home extends Component {
 
   componentDidMount () {
     this.props.fetchData()
-    console.log('dataState', this.props.dataState)
   }
 
   render () {
@@ -28,6 +29,8 @@ const mapStateToProps = (state) => ({
   dataState: state.dataState
 })
 const mapactionsTypeToProps = (dispatch) => ({
-  fetchData: () => dispatch({ type: actionsType.FETCH_DATA, payload: { data: [], isLoading: true } })
+  fetchData: () => dispatch({ type: actionsType.FETCH_DATA, payload: { data: [], isLoading: true } }),
+  updateData: (data) => dispatch({ type: actionsType.UPDATE_DATA_SUCCESS, payload: data }),
+  gotoDetail: (data) => dispatch({ type: actionsType.PUSH, routeName: RouteKey.Detail, params: { data } })
 })
 export default connect(mapStateToProps, mapactionsTypeToProps)(Home)

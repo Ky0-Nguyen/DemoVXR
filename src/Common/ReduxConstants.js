@@ -8,7 +8,9 @@ export const actionsType = {
   PUSH: 'push',
   POP: 'pop'
 }
-
+export const initState = {
+  dataInit: []
+}
 /**
    * TIME_OUT: 30s
    */

@@ -7,5 +7,5 @@ export const RouteKey = {
   Detail: 'Detail'
 }
 export const KeyStore = {
-  AUTHEN_TOKEN: 'AUTHEN_TOKEN'
+  FETCH_DATA: 'FETCH_DATA'
 }
