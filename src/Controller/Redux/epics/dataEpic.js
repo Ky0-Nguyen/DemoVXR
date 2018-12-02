@@ -6,7 +6,12 @@ import { KeyStore } from 'common/GlobalConstants'
 import SimpleStore from 'react-native-simple-store'
 
 export default (action$) => {
+<<<<<<< HEAD
+  alert('tuan')
+  const fetchRooms$ = action$.ofType(actionsType.FETCH_DATA).switchMap((action) => {
+=======
   const fetchData$ = action$.ofType(actionsType.FETCH_DATA).switchMap((action) => {
+>>>>>>> bbbac9c88988af277f84ae128962a957e30f8067
     return Observable.concat(
       Observable.fromPromise(SimpleStore.get(KeyStore.FETCH_DATA))
         .mergeMap((data) => {

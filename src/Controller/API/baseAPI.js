@@ -7,6 +7,7 @@ import axios from 'axios'
 * @description description
 * --------------------------------------- */
 export const get = (url = '', body = null, header = {}) => {
+  console.log('urlget', url)
   return axios.get(url, body, header)
     .then(response => { return response })
     .catch(e => { return e })
