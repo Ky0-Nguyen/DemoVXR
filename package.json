@@ -13,14 +13,7 @@
     "test": "jest"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "assert": "^1.4.1",
     "axios": "^0.18.0",
-    "buffer": "^4.9.1",
-    "events": "^1.1.1",
-=======
-    "axios": "^0.18.0",
->>>>>>> bbbac9c88988af277f84ae128962a957e30f8067
     "react": "16.6.1",
     "react-native": "0.57.7",
     "react-native-animatable": "^1.3.0",
