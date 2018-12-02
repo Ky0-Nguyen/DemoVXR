@@ -13,9 +13,8 @@ import { RouteKey } from 'common/GlobalConstants'
 class SplashScreenRN extends Component {
   componentDidMount () {
     SplashScreen.hide()
-
     setTimeout(() =>
-      this.props.gotoDetail()
+      this.props.gotoHome()
     , 1000
     )
   }
@@ -29,9 +28,10 @@ class SplashScreenRN extends Component {
 }
 
 const mapStateToProps = (state) => ({
+
 })
 const mapactionsTypeToProps = (dispatch) => ({
-  gotoDetail: () => dispatch({ type: actionsType.PUSH, routeName: RouteKey.HomeScreen })
+  gotoHome: () => dispatch({ type: actionsType.PUSH, routeName: RouteKey.HomeScreen })
 })
 export default connect(mapStateToProps, mapactionsTypeToProps)(SplashScreenRN)
 

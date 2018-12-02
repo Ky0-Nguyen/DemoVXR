@@ -5,10 +5,11 @@ import {
   Keyboard,
   StyleSheet
 } from 'react-native'
-import gStyles from 'common/GlobalStyles'
 import CoreHeader from './CoreHeader'
-import { width, height } from 'common/GlobalConstants'
-import InternetAlert from 'frontend/components/CustomAlert/InternetAlert'
+import gStyles, { width, height } from 'common/GlobalStyles'
+
+import CustomLoading from 'frontend/Component/CustomLoading'
+import CustomModal from 'frontend/Component/CustomModal'
 
 class CoreLayoutContainer extends React.Component {
 dismissKeyboard = () => Keyboard.dismiss()
@@ -24,7 +25,11 @@ get renderContent () {
     headerStyle,
     leftAction,
     headerCustomView,
-    disabledCustomRightIcon
+    disabledCustomRightIcon,
+    isProcess,
+    modalView,
+    isShowModal,
+    styleModal
   } = this.props
   return (
     <View style={gStyles.backgroundDefault}>
@@ -44,7 +49,10 @@ get renderContent () {
       <View style={[gStyles.backgroundDefault, style]}>
         {children}
       </View>
-      <InternetAlert/>
+      <CustomLoading isProcess={isProcess} style={styles.modal}/>
+      <CustomModal style={[styles.customModal, styleModal]} isShowModal={isShowModal}>
+        {modalView}
+      </CustomModal>
     </View>
   )
 }
@@ -68,6 +76,13 @@ const styles = StyleSheet.create({
     width: width(100),
     justifyContent: 'center',
     backgroundColor: '#FFCD02'
+  },
+  modal: {
+    top: height(40)
+  },
+  customModal: {
+    top: height(15),
+    width: width(90)
   }
 })
 

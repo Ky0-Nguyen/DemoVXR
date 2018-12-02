@@ -2,8 +2,7 @@
 import React, { PureComponent } from 'react'
 import { View, StyleSheet, TouchableWithoutFeedback, Text, TouchableOpacity } from 'react-native'
 import * as Animatable from 'react-native-animatable'
-import { height, width } from 'common/GlobalStyles'
-import { COLOR } from 'common/GlobalConstants'
+import { height, width, COLORS } from 'common/GlobalStyles'
 
 // create a component
 class MyClass extends PureComponent {
@@ -77,14 +76,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1000,
     backgroundColor: 'black',
-    opacity: 0.1
+    opacity: 0.4
   },
   contComponent: {
     width: width(80),
     backgroundColor: '#FFFFFF',
-    borderRadius: 10,
+    // borderRadius: 10,
     position: 'absolute',
-    top: height(35),
+    top: height(25),
     zIndex: 1001,
     alignSelf: 'center'
   },
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
   },
   txtButton: {
     fontWeight: 'bold',
-    color: COLOR.BUTTON
+    color: COLORS.BUTTON
   },
   btn: {
     flex: 1,
