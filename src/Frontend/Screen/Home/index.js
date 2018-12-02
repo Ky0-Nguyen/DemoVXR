@@ -3,12 +3,10 @@ import { View, Text, FlatList, StyleSheet, WebView, TouchableOpacity } from 'rea
 
 import { actionsType } from 'common/ReduxConstants'
 import { RouteKey } from 'common/GlobalConstants'
-<<<<<<< HEAD
-=======
+
 import { width, height } from 'common/GlobalStyles'
 
 import CoreHeader from 'frontend/Container/CoreHeader'
->>>>>>> bbbac9c88988af277f84ae128962a957e30f8067
 
 import { connect } from 'react-redux'
 
@@ -39,8 +37,6 @@ class Home extends Component {
 
   async componentDidMount () {
     this.props.fetchData()
-<<<<<<< HEAD
-=======
   }
 
   _onSaved = (items) => {
@@ -150,7 +146,6 @@ class Home extends Component {
         }
       </TouchableOpacity>
     )
->>>>>>> bbbac9c88988af277f84ae128962a957e30f8067
   }
 
   render () {
@@ -177,11 +172,8 @@ const mapStateToProps = (state) => ({
 const mapactionsTypeToProps = (dispatch) => ({
   fetchData: () => dispatch({ type: actionsType.FETCH_DATA, payload: { data: [], isLoading: true } }),
   updateData: (data) => dispatch({ type: actionsType.UPDATE_DATA_SUCCESS, payload: data }),
-<<<<<<< HEAD
-  gotoDetail: (data) => dispatch({ type: actionsType.PUSH, routeName: RouteKey.Detail, params: { data } })
-=======
   gotoDetail: (item, func) => dispatch({ type: actionsType.PUSH, routeName: RouteKey.DetailScreen, params: { item, func } })
->>>>>>> bbbac9c88988af277f84ae128962a957e30f8067
+
 })
 export default connect(mapStateToProps, mapactionsTypeToProps)(Home)
 
